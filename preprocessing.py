@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import re
 import spacy
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+import pickle
 
 # List of all intents in the same order as the model's output
 intents = ["find-train", "irrelevant", "find-flight", "find-restaurant", "purchase", "find-around-me", "provide-showtimes", "find-hotel"]
@@ -77,7 +78,13 @@ class Preprocessor:
     def preprocess_intents(self):
         self.clean_intents()
         self.preprocessed_intents = np.asarray(list(map(intent2vec, self.intents)))
-        
+    
+    # Save the dataset as a dataframe in a pickle file
+    def save_dataset(self):
+        self.df_dataset = pd.DataFrame(self.preprocesses_sentences, self.preprocessed_intents,
+                                       columns=['sentence', 'intent'])
+        with open('pickle_preprocessed_dataset', 'wb') as f:
+            pickle.dumb(self.df_dataset, f)
         
     # Apply whole preprocessing to dataset
     def preprocess(self):
@@ -85,6 +92,9 @@ class Preprocessor:
         self.preprocess_intents()
         
         # TODO build preprocessed dataset object
+        self.save_dataset()
+
+            
         
         
     
