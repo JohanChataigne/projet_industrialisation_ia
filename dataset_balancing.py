@@ -3,14 +3,14 @@ import pandas as pd
 from imblearn.over_sampling import RandomOverSampler
 from imblearn.under_sampling import RandomUnderSampler
 import pickle
+import os
 
 class Balance:
     
     def __init__(self, dataset):
         
-        self.sentences = dataset['sentence']
-        self.intents = dataset['intent']
-    
+        self.sentences = dataset['sentence'].to_numpy()
+        self.intents = dataset['intent'].to_numpy()
     
     # Oversample all the classes except irrelevant to 2000 samples each by duplicating samples
     def oversample(self):
@@ -22,21 +22,28 @@ class Balance:
             oversampling_dict[l] = 2000
             
         oversampler = RandomOverSampler(sampling_strategy=oversampling_dict)
-        self.sentences, self.intents = oversampler.fit_resample(self.sentences, self.intents)
+        self.sentences, self.intents = oversampler.fit_resample(self.sentences.reshape(-1, 1), self.intents)
         
     # Undersample the irrelevant class to 2000 samples by removing samples
     def undersample(self):
         undersampler = RandomUnderSampler(sampling_strategy='majority')
-        self.sentences, self.intents = undersampler.fit_resample(self.sentences, self.intents)
+        self.sentences, self.intents = undersampler.fit_resample(self.sentences.reshape(-1, 1), self.intents)
         
     # Save the dataset as a dataframe in a pickle file
     def save_dataset(self, path):
-        self.df_dataset = pd.DataFrame(np.array([self.sentences, self.intents], dtype=object),
-                                       columns=['sentence', 'intent'])
+        
+        # Regroup labels and datas in one structure
+        data = []
+        for i in range(len(self.sentences)):
+            data.append([self.sentences[i], self.intents[i]])
+            
+        data = np.array(data)
+        
+        self.df_dataset = pd.DataFrame(data, columns=['sentence', 'intent'])
         
         if path is not None:
             with open(path, 'wb') as f:
-                pickle.dumb(self.df_dataset, f)
+                pickle.dump(self.df_dataset, f)
         
     # Apply the oversampling and undersampling to the dataset
     def process_balance(self, path=None):

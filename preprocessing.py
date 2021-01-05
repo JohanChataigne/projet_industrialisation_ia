@@ -86,11 +86,19 @@ class Preprocessor:
     
     # Save the dataset as a dataframe in a pickle file
     def save_dataset(self, path):
-        self.df_dataset = pd.DataFrame(np.array([self.preprocessed_sentences, self.preprocessed_intents], dtype=object),
-                                       columns=['sentence', 'intent'])
+        
+        # Regroup labels and datas in one structure
+        data = []
+        for i in range(self.preprocessed_sentences.shape[0]):
+            data.append([self.preprocessed_sentences[i], self.preprocessed_intents[i]])
+            
+        data = np.array(data)
+        
+        self.df_dataset = pd.DataFrame(data, columns=['sentence', 'intent'])
+        
         if path is not None:
             with open(path, 'wb') as f:
-                pickle.dumb(self.df_dataset, f)
+                pickle.dump(self.df_dataset, f)
         
     # Apply whole preprocessing to dataset
     def preprocess(self, path=None):
