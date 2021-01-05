@@ -4,13 +4,6 @@ from imblearn.over_sampling import RandomOverSampler
 from imblearn.under_sampling import RandomUnderSampler
 import pickle
 
-# Load training and test sets
-df_train = pd.read_json('datas/training_set.json')
-df_test = pd.read_json('datas/testing_set.json')
-
-print(f"Train shape : {df_train.shape}")
-print(f"Test shape : {df_test.shape}")
-
 class Balance:
     
     def __init__(self, dataset):
@@ -37,13 +30,21 @@ class Balance:
         self.sentences, self.intents = undersampler.fit_resample(self.sentences, self.intents)
         
     # Save the dataset as a dataframe in a pickle file
-    def save_dataset(self):
+    def save_dataset(self, path):
         self.df_dataset = pd.DataFrame(self.sentences, self.intents,
                                        columns=['sentence', 'intent'])
-        with open('pickle_balanced_dataset', 'wb') as f:
-            pickle.dumb(self.df_dataset, f)
+        
+        if path is not None:
+            with open('pickle_balanced_dataset', 'wb') as f:
+                pickle.dumb(self.df_dataset, f)
         
     # Apply the oversampling and undersampling to the dataset
-    def process_balance(self):
-        self.oversample()
-        self.undersample()
+    def process_balance(self, path=None):
+        
+        if path is not None and os.path.exists(path):
+            with open(path, 'rb') as f:
+                self.df_dataset = pickle.load(f)
+        else: 
+            self.oversample()
+            self.undersample()
+            self.save_dataset(path)
