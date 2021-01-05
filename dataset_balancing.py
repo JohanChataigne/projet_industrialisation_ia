@@ -12,8 +12,11 @@ class Balance:
         self.sentences = dataset['sentence'].to_numpy()
         self.intents = dataset['intent'].to_numpy()
     
-    # Oversample all the classes except irrelevant to 2000 samples each by duplicating samples
+    
     def oversample(self):
+        '''
+        Oversample all the classes except irrelevant to 2000 samples each by duplicating samples
+        '''
         
         labels = np.unique(self.intents)
         oversampling_dict = {}
@@ -24,13 +27,19 @@ class Balance:
         oversampler = RandomOverSampler(sampling_strategy=oversampling_dict)
         self.sentences, self.intents = oversampler.fit_resample(self.sentences.reshape(-1, 1), self.intents)
         
-    # Undersample the irrelevant class to 2000 samples by removing samples
+    
     def undersample(self):
+        '''
+        Undersample the irrelevant class to 2000 samples by removing samples
+        '''
         undersampler = RandomUnderSampler(sampling_strategy='majority')
         self.sentences, self.intents = undersampler.fit_resample(self.sentences.reshape(-1, 1), self.intents)
         
-    # Save the dataset as a dataframe in a pickle file
+
     def save_dataset(self, path):
+        '''
+        Save the dataset as a dataframe in a pickle file
+        '''
         
         # Regroup labels and datas in one structure
         data = []
@@ -45,8 +54,11 @@ class Balance:
             with open(path, 'wb') as f:
                 pickle.dump(self.df_dataset, f)
         
-    # Apply the oversampling and undersampling to the dataset
+    
     def process_balance(self, path=None):
+        '''
+        Apply the oversampling and undersampling to the dataset
+        '''
         
         if path is not None and os.path.exists(path):
             with open(path, 'rb') as f:

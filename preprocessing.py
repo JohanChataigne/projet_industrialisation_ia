@@ -26,8 +26,11 @@ class Preprocessor:
         # Keep track of the removed sentences' intents during preprocessing
         self.intents_to_remove = []
     
-    # Remove some special characters and split sentences
+    
     def clean(self):
+        '''
+        Remove some special characters and split sentences
+        '''
 
         for i, s in enumerate(self.sentences):
             # remove special characters
@@ -44,8 +47,11 @@ class Preprocessor:
             if len(final_sentence) > 0: self.clean_text.append(final_sentence)
             else: self.intents_to_remove.append(i)
 
-    # Transform words into their vector representation
+                
     def vectorize(self):
+        '''
+        Transform words into their vector representation
+        '''
 
         null_vector = np.zeros(300)
 
@@ -53,19 +59,28 @@ class Preprocessor:
             vects = [w.vector if w.has_vector else null_vector for w in s]
             self.vectorized_text.append(vects)
 
-    # Add padding to sentences to have same size datas
+    
     def pad(self):
+        '''
+        Add padding to sentences to have same size datas
+        '''
         self.padded_sentences = pad_sequences(self.vectorized_text, dtype='float32', padding='post')
 
-    # Apply the whole pipeline to input sentences and return them as numpy array object
+    
     def preprocess_sentences(self):
+        '''
+        Apply the whole pipeline to input sentences and return them as numpy array object
+        '''
         self.clean()
         self.vectorize()
         self.pad()
         self.preprocessed_sentences = np.asarray(self.padded_sentences)
 
-    # One hot encode one intent (take string representation of the label)
+
     def intent2vec(self, intent):
+        '''
+        One hot encode one intent (take string representation of the label)
+        '''
         assert intent in intents
 
         idx = intents.index(intent)
@@ -73,19 +88,28 @@ class Preprocessor:
         vec[idx] = 1
         return vec
     
-    # Remove intents of removed sentences
+    
     def clean_intents(self):
+        '''
+        Remove intents of removed sentences
+        '''
         # Reverse to remove the right elements (no error due to index shifting)
         for idx in reversed(self.intents_to_remove):
             self.intents.pop(idx)
         
-    # Apply one hot encoding to all the intents
+    
     def preprocess_intents(self):
+        '''
+        Apply one hot encoding to all the intents
+        '''
         self.clean_intents()
         self.preprocessed_intents = np.asarray(list(map(self.intent2vec, self.intents)))
     
-    # Save the dataset as a dataframe in a pickle file
+    
     def save_dataset(self, path):
+        '''
+        Save the dataset as a dataframe in a pickle file
+        '''
         
         # Regroup labels and datas in one structure
         data = []
@@ -100,8 +124,11 @@ class Preprocessor:
             with open(path, 'wb') as f:
                 pickle.dump(self.df_dataset, f)
         
-    # Apply whole preprocessing to dataset
+    
     def preprocess(self, path=None):
+        '''
+        Apply whole preprocessing to dataset
+        '''
         
         if path is not None and os.path.exists(path):
             with open(path, 'rb') as f:
@@ -110,8 +137,3 @@ class Preprocessor:
             self.preprocess_sentences()
             self.preprocess_intents()
             self.save_dataset(path)
-
-            
-        
-        
-    
