@@ -23,7 +23,7 @@ class Preprocessor:
         self.vectorized_text = []
         self.padded_sentences = []
         
-        # Keep track of the intents of the removed sentences during preprocessing
+        # Keep track of the removed sentences' intents during preprocessing
         self.intents_to_remove = []
     
     # Remove some special characters and split sentences
@@ -85,19 +85,23 @@ class Preprocessor:
         self.preprocessed_intents = np.asarray(list(map(self.intent2vec, self.intents)))
     
     # Save the dataset as a dataframe in a pickle file
-    def save_dataset(self):
+    def save_dataset(self, path):
         self.df_dataset = pd.DataFrame(self.preprocesses_sentences, self.preprocessed_intents,
                                        columns=['sentence', 'intent'])
-        with open('pickle_preprocessed_dataset', 'wb') as f:
-            pickle.dumb(self.df_dataset, f)
+        if path is not None:
+            with open(path, 'wb') as f:
+                pickle.dumb(self.df_dataset, f)
         
     # Apply whole preprocessing to dataset
-    def preprocess(self):
-        self.preprocess_sentences()
-        self.preprocess_intents()
+    def preprocess(self, path=None):
         
-        # TODO build preprocessed dataset object
-        self.save_dataset()
+        if path is not None and os.path.exists(path):
+            with open(path, 'rb') as f:
+                self.df_dataset = pickle.load(f)
+        else:
+            self.preprocess_sentences()
+            self.preprocess_intents()
+            self.save_dataset(path)
 
             
         
