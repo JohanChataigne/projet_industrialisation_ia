@@ -86,7 +86,7 @@ class Preprocessor:
     
     # Save the dataset as a dataframe in a pickle file
     def save_dataset(self, path):
-        self.df_dataset = pd.DataFrame(self.preprocesses_sentences, self.preprocessed_intents,
+        self.df_dataset = pd.DataFrame(np.array([self.preprocessed_sentences, self.preprocessed_intents], dtype=object),
                                        columns=['sentence', 'intent'])
         if path is not None:
             with open(path, 'wb') as f:

@@ -31,11 +31,11 @@ class Balance:
         
     # Save the dataset as a dataframe in a pickle file
     def save_dataset(self, path):
-        self.df_dataset = pd.DataFrame(self.sentences, self.intents,
+        self.df_dataset = pd.DataFrame(np.array([self.sentences, self.intents], dtype=object),
                                        columns=['sentence', 'intent'])
         
         if path is not None:
-            with open('pickle_balanced_dataset', 'wb') as f:
+            with open(path, 'wb') as f:
                 pickle.dumb(self.df_dataset, f)
         
     # Apply the oversampling and undersampling to the dataset
