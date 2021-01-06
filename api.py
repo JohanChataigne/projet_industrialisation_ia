@@ -4,7 +4,14 @@ from preprocessing import preprocess_sentence
 from tensorflow import keras
 from utils import *
 
+import os
+import pickle
 
+if os.path.exists('./best_threshold'):
+    with open('./best_threshold', 'rb') as f:
+        threshold = pickle.load(f)
+else:
+    threshold = None
 
 app = Flask(__name__)
 swagger = Swagger(app)
@@ -29,7 +36,7 @@ def predict(sentence):
     model = keras.models.load_model('./models/model_v1')
     x = preprocess_sentence(sentence)
     prediction = model.predict(x.reshape(1, 1, x.shape[0]))
-    intent = get_predicted_intent(prediction)
+    intent = get_predicted_intent(prediction, threshold)
     return intent_pretty_print(intent)
     
 

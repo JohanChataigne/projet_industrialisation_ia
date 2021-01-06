@@ -4,8 +4,10 @@ import matplotlib.pyplot as plt
 import re
 import os
 import spacy
+import fr_core_news_md
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import pickle
+
 
 #pip install https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-2.0.0/fr_core_news_md-2.0.0.tar.gz
 
@@ -16,8 +18,9 @@ class Preprocessor:
     
     def __init__(self, dataset):
         
-        os.system('python -m spacy download fr_core_news_md')
-        self.nlp = spacy.load('fr_core_news_md')
+        #os.system('python -m spacy download fr_core_news_md')
+        self.nlp = fr_core_news_md.load()
+        #self.nlp = spacy.load('fr_core_news_md')
         
         self.sentences = list(dataset['sentence'])
         self.intents = list(dataset['intent'])
@@ -148,7 +151,8 @@ class Preprocessor:
             
 def preprocess_sentence(sentence):
     
-    nlp = spacy.load('fr_core_news_md')
+    #nlp = spacy.load('fr_core_news_md')
+    nlp = fr_core_news_md.load()
     
     # remove special characters
     clean_sentence = re.sub(r'[^ A-Za-z0-9éèàêî€]', '', sentence)
