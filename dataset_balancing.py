@@ -26,6 +26,7 @@ class Balance:
             
         oversampler = RandomOverSampler(sampling_strategy=oversampling_dict)
         self.sentences, self.intents = oversampler.fit_resample(self.sentences.reshape(-1, 1), self.intents)
+        self.sentences = self.sentences.flatten()
         
     
     def undersample(self):
@@ -34,6 +35,7 @@ class Balance:
         '''
         undersampler = RandomUnderSampler(sampling_strategy='majority')
         self.sentences, self.intents = undersampler.fit_resample(self.sentences.reshape(-1, 1), self.intents)
+        self.sentences = self.sentences.flatten()
         
 
     def save_dataset(self, path):
@@ -55,12 +57,12 @@ class Balance:
                 pickle.dump(self.df_dataset, f)
         
     
-    def process_balance(self, path=None):
+    def process_balance(self, path=None, force=False):
         '''
         Apply the oversampling and undersampling to the dataset
         '''
         
-        if path is not None and os.path.exists(path):
+        if path is not None and os.path.exists(path) and not force:
             with open(path, 'rb') as f:
                 self.df_dataset = pickle.load(f)
         else: 

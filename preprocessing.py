@@ -56,8 +56,10 @@ class Preprocessor:
         null_vector = np.zeros(300)
 
         for s in self.clean_text:
-            vects = [w.vector if w.has_vector else null_vector for w in s]
+            vects = np.asarray([w.vector if w.has_vector else null_vector for w in s])
             self.vectorized_text.append(vects)
+            
+        self.vectorized_text = np.asarray(self.vectorized_text)
 
     
     def pad(self):
@@ -74,7 +76,7 @@ class Preprocessor:
         self.clean()
         self.vectorize()
         self.pad()
-        self.preprocessed_sentences = np.asarray(self.padded_sentences)
+        self.preprocessed_sentences = self.padded_sentences
 
 
     def intent2vec(self, intent):
@@ -103,7 +105,7 @@ class Preprocessor:
         Apply one hot encoding to all the intents
         '''
         self.clean_intents()
-        self.preprocessed_intents = np.asarray(list(map(self.intent2vec, self.intents)))
+        self.preprocessed_intents = np.asarray(map(self.intent2vec, self.intents))
     
     
     def save_dataset(self, path):
@@ -125,12 +127,12 @@ class Preprocessor:
                 pickle.dump(self.df_dataset, f)
         
     
-    def preprocess(self, path=None):
+    def preprocess(self, path=None, force=False):
         '''
         Apply whole preprocessing to dataset
         '''
         
-        if path is not None and os.path.exists(path):
+        if path is not None and os.path.exists(path) and not force:
             with open(path, 'rb') as f:
                 self.df_dataset = pickle.load(f)
         else:
