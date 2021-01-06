@@ -21,7 +21,6 @@ class Preprocessor:
         self.intents = list(dataset['intent'])
         self.clean_text = []
         self.vectorized_text = []
-        self.padded_sentences = []
         
         # Keep track of the removed sentences' intents during preprocessing
         self.intents_to_remove = []
@@ -66,7 +65,7 @@ class Preprocessor:
         '''
         Add padding to sentences to have same size datas
         '''
-        self.padded_sentences = pad_sequences(self.vectorized_text, dtype='float32', padding='post')
+        self.preprocessed_sentences = pad_sequences(self.vectorized_text, dtype='float32', padding='post')
 
     
     def preprocess_sentences(self):
@@ -76,7 +75,6 @@ class Preprocessor:
         self.clean()
         self.vectorize()
         self.pad()
-        self.preprocessed_sentences = self.padded_sentences
 
 
     def intent2vec(self, intent):
@@ -105,7 +103,7 @@ class Preprocessor:
         Apply one hot encoding to all the intents
         '''
         self.clean_intents()
-        self.preprocessed_intents = np.asarray(map(self.intent2vec, self.intents))
+        self.preprocessed_intents = np.asarray(list(map(self.intent2vec, self.intents)))
     
     
     def save_dataset(self, path):
@@ -115,7 +113,11 @@ class Preprocessor:
         
         # Regroup labels and datas in one structure
         data = []
-        for i in range(self.preprocessed_sentences.shape[0]):
+        print(self.preprocessed_sentences.shape)
+        print(self.preprocessed_intents.shape)
+        assert len(self.preprocessed_sentences) == len(self.preprocessed_intents)
+        
+        for i in range(len(self.preprocessed_sentences)):
             data.append([self.preprocessed_sentences[i], self.preprocessed_intents[i]])
             
         data = np.array(data)
