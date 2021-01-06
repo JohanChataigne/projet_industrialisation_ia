@@ -1,0 +1,11 @@
+Route to get the intent predicted by the classification model for the given sentence.
+---
+parameters:
+  - name: sentence
+    in: path
+    type: string
+    required: true
+
+responses:
+  200:
+    description: Intent predicted by the model for the given sentence
