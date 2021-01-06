@@ -141,3 +141,27 @@ class Preprocessor:
             self.preprocess_sentences()
             self.preprocess_intents()
             self.save_dataset(path)
+            
+            
+def preprocess_sentence(sentence):
+    
+    nlp = spacy.load('fr_core_news_md')
+    
+
+    # remove special characters
+    clean_sentence = re.sub(r'[^ A-Za-z0-9éèàêî€]', '', sentence)
+    doc_s = nlp(clean_sentence)
+
+    # remove determiners (i.e. pos = 90 or pos_ = 'DET')
+    remaining_words = list(filter(lambda x: x.pos != 90, doc_s))
+    # build new doc object
+    str_s = " ".join(list(map(lambda x: x.text, remaining_words)))
+    final_sentence = nlp(str_s)
+
+    null_vector = np.zeros(300)
+
+    vects = np.asarray([w.vector if w.has_vector else null_vector for w in final_sentence])
+
+    return vects
+
+    
