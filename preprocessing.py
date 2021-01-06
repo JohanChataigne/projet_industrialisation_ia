@@ -148,7 +148,6 @@ def preprocess_sentence(sentence):
     
     nlp = spacy.load('fr_core_news_md')
     
-
     # remove special characters
     clean_sentence = re.sub(r'[^ A-Za-z0-9éèàêî€]', '', sentence)
     doc_s = nlp(clean_sentence)
@@ -161,8 +160,8 @@ def preprocess_sentence(sentence):
 
     null_vector = np.zeros(300)
 
-    vects = np.asarray([w.vector if w.has_vector else null_vector for w in final_sentence])
+    vect = np.asarray(final_sentence.vector if final_sentence.has_vector else null_vector)
 
-    return vects
+    return vect
 
     
