@@ -53,12 +53,13 @@ class Preprocessor:
         '''
 
         null_vector = np.zeros(300)
-
+        
         for s in self.clean_text:
-            vects = np.asarray([w.vector if w.has_vector else null_vector for w in s])
-            self.vectorized_text.append(vects)
+            v = s.vector if s.has_vector else null_vector
+            self.vectorized_text.append(v)
             
         self.vectorized_text = np.asarray(self.vectorized_text)
+        self.preprocessed_sentences = self.vectorized_text
 
     
     def pad(self):
@@ -74,7 +75,7 @@ class Preprocessor:
         '''
         self.clean()
         self.vectorize()
-        self.pad()
+        #self.pad()
 
 
     def intent2vec(self, intent):
