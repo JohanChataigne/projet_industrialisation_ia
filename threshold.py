@@ -9,6 +9,7 @@ with open('./preprocessed_data/test_nlp_preprocessed', 'rb') as fp:
     test_set = pickle.load(fp)
     
 x_test = np.array(list(test_set['sentence']))
+x_test = np.reshape(x_test, (x_test.shape[0], 1, x_test.shape[1]))
 y_test = np.array(list(test_set['intent']))
 
 def apply_threshold(x, threshold):
@@ -42,10 +43,13 @@ def compute_threshold():
     return scores, maximum, thresholds[scores.index(maximum)]
         
         
-    
-    
-scores, maximum, t = compute_threshold()
+if __name__ == "__main__":
 
-print(scores)
-print(maximum)
-print(t)
+    scores, max_score, threshold = compute_threshold()
+    
+    print("scores :", scores)
+    print("max_score =", max_score)
+    print("best threshold =", threshold)
+    
+    with open('./best_threshold', 'wb') as f:
+        pickle.dump(threshold, f)
