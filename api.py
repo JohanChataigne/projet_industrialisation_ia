@@ -27,7 +27,7 @@ def predict(sentence):
     
     model = keras.models.load_model('./models/model_v1')
     x = preprocess_sentence(sentence)
-    prediction = model.predict(x)
+    prediction = model.predict(x.reshape(1, 1, x.shape[0]))
     return str(prediction)
     
 
