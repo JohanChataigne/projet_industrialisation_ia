@@ -7,6 +7,8 @@ import spacy
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import pickle
 
+#pip install https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-2.0.0/fr_core_news_md-2.0.0.tar.gz
+
 # List of all intents in the same order as the model's output
 intents = ["find-train", "irrelevant", "find-flight", "find-restaurant", "purchase", "find-around-me", "provide-showtimes", "find-hotel"]
     
