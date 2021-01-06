@@ -2,6 +2,7 @@ from flask import Flask
 from flasgger import Swagger, swag_from
 from preprocessing import preprocess_sentence
 from tensorflow import keras
+from utils import *
 
 
 
@@ -28,7 +29,8 @@ def predict(sentence):
     model = keras.models.load_model('./models/model_v1')
     x = preprocess_sentence(sentence)
     prediction = model.predict(x.reshape(1, 1, x.shape[0]))
-    return str(prediction)
+    intent = get_predicted_intent(prediction)
+    return intent_pretty_print(intent)
     
 
 if __name__ == "__main__":
