@@ -1,0 +1,8 @@
+- typing dans tout le code
+- test unitaires de nos fonctions
+- organisation du dépôt, gérer les imports de modules
+- documenter les routes de l'api (dont les codes d'erreurs)
+- faire un readme détaillant le travail effectué et les pistes d'amélioration
+- faire l'image docker pour encapsuler l'application
+- afficher les performances du modèle et de l'api dans la documentation (montée en charge)
+

@@ -151,7 +151,6 @@ class Preprocessor:
             
 def preprocess_sentence(sentence):
     
-    #nlp = spacy.load('fr_core_news_md')
     nlp = fr_core_news_md.load()
     
     # remove special characters
