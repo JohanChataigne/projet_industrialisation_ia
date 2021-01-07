@@ -7,6 +7,7 @@ import spacy
 import fr_core_news_md
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import pickle
+import typing as t
 
 
 #pip install https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-2.0.0/fr_core_news_md-2.0.0.tar.gz
@@ -16,7 +17,7 @@ intents = ["find-train", "irrelevant", "find-flight", "find-restaurant", "purcha
     
 class Preprocessor:
     
-    def __init__(self, dataset):
+    def __init__(self, dataset: t.Iterable) -> t.NoReturn:
         
         #os.system('python -m spacy download fr_core_news_md')
         self.nlp = fr_core_news_md.load()
@@ -31,7 +32,7 @@ class Preprocessor:
         self.intents_to_remove = []
     
     
-    def clean(self):
+    def clean(self) -> t.NoReturn:
         '''
         Remove some special characters and split sentences
         '''
@@ -52,7 +53,7 @@ class Preprocessor:
             else: self.intents_to_remove.append(i)
 
                 
-    def vectorize(self):
+    def vectorize(self) -> t.NoReturn:
         '''
         Transform words into their vector representation
         '''
@@ -67,14 +68,14 @@ class Preprocessor:
         self.preprocessed_sentences = self.vectorized_text
 
     
-    def pad(self):
+    def pad(self) -> t.NoReturn:
         '''
         Add padding to sentences to have same size datas
         '''
         self.preprocessed_sentences = pad_sequences(self.vectorized_text, dtype='float32', padding='post')
 
     
-    def preprocess_sentences(self):
+    def preprocess_sentences(self) -> t.NoReturn:
         '''
         Apply the whole pipeline to input sentences and return them as numpy array object
         '''
@@ -83,7 +84,7 @@ class Preprocessor:
         #self.pad()
 
 
-    def intent2vec(self, intent):
+    def intent2vec(self, intent: t.Iterable) -> t.Iterable:
         '''
         One hot encode one intent (take string representation of the label)
         '''
@@ -95,7 +96,7 @@ class Preprocessor:
         return vec
     
     
-    def clean_intents(self):
+    def clean_intents(self) -> t.NoReturn:
         '''
         Remove intents of removed sentences
         '''
@@ -104,7 +105,7 @@ class Preprocessor:
             self.intents.pop(idx)
         
     
-    def preprocess_intents(self):
+    def preprocess_intents(self) -> t.NoReturn:
         '''
         Apply one hot encoding to all the intents
         '''
@@ -112,7 +113,7 @@ class Preprocessor:
         self.preprocessed_intents = np.asarray(list(map(self.intent2vec, self.intents)))
     
     
-    def save_dataset(self, path):
+    def save_dataset(self, path: str) -> t.NoReturn:
         '''
         Save the dataset as a dataframe in a pickle file
         '''
@@ -135,7 +136,7 @@ class Preprocessor:
                 pickle.dump(self.df_dataset, f)
         
     
-    def preprocess(self, path=None, force=False):
+    def preprocess(self, path: str=None, force: bool=False) -> t.NoReturn:
         '''
         Apply whole preprocessing to dataset
         '''
@@ -149,7 +150,7 @@ class Preprocessor:
             self.save_dataset(path)
             
             
-def preprocess_sentence(sentence):
+def preprocess_sentence(sentence: str) -> t.Iterable:
     
     nlp = fr_core_news_md.load()
     
