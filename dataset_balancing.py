@@ -4,16 +4,17 @@ from imblearn.over_sampling import RandomOverSampler
 from imblearn.under_sampling import RandomUnderSampler
 import pickle
 import os
+import typing as t
 
 class Balance:
     
-    def __init__(self, dataset):
+    def __init__(self, dataset) -> t.NoReturn:
         
         self.sentences = dataset['sentence'].to_numpy()
         self.intents = dataset['intent'].to_numpy()
     
     
-    def oversample(self):
+    def oversample(self) -> t.NoReturn:
         '''
         Oversample all the classes except irrelevant to 2000 samples each by duplicating samples
         '''
@@ -29,7 +30,7 @@ class Balance:
         self.sentences = self.sentences.flatten()
         
     
-    def undersample(self):
+    def undersample(self) -> t.NoReturn:
         '''
         Undersample the irrelevant class to 2000 samples by removing samples
         '''
@@ -38,7 +39,7 @@ class Balance:
         self.sentences = self.sentences.flatten()
         
 
-    def save_dataset(self, path):
+    def save_dataset(self, path: str) -> t.NoReturn:
         '''
         Save the dataset as a dataframe in a pickle file
         '''
@@ -57,7 +58,7 @@ class Balance:
                 pickle.dump(self.df_dataset, f)
         
     
-    def process_balance(self, path=None, force=False):
+    def process_balance(self, path: str=None, force: bool=False) -> t.NoReturn:
         '''
         Apply the oversampling and undersampling to the dataset
         '''
