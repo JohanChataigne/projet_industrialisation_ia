@@ -10,6 +10,13 @@ class Config:
         'version': 'v1',
         'title': 'Intent detection API',
         'description': 'API offering access to an intent classification model',
-        'termsOfService': 'None'
+        'termsOfService': 'Free to use',
+        'basePath': '/',
+        'specs': [
+            {
+                "endpoint": 'docs',
+                "route": '/docs.json',
+            }
+        ]
     }
     

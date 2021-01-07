@@ -26,6 +26,7 @@ swagger = Swagger(app)
 
 # API routes
 @app.route('/')
+@app.route('/api/')
 def home():
     """Home route"""
     
@@ -36,7 +37,6 @@ def home():
 
     return md_template_string
 
-@app.route('/api/')
 @app.route('/apidocs/')
 def apidocs():
     """Documentation route"""
@@ -55,4 +55,4 @@ def predict(sentence):
 
 if __name__ == "__main__":
     
-    app.run(debug=True)
+    app.run(debug=True, port=8080)
