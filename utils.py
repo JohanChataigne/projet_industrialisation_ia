@@ -7,6 +7,8 @@ def get_predicted_intent(probs, threshold=None):
     
     theorical_max = np.argmax(probs)
     
+    probs = probs.flatten()
+    
     if threshold is not None:
         intent = intents[theorical_max] if probs[theorical_max] >= threshold else "irrelevant"
     else:
