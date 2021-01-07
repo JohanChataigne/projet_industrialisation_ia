@@ -11,4 +11,4 @@ responses:
     description: Intent predicted by the model for the given sentence
     
   500:
-    description: Error
+    description: Application Internal Error
