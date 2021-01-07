@@ -14,7 +14,10 @@ prints = {
         7: "I figured out that you want to find a hotel."   
 }
 
-def get_predicted_intent(probs, threshold=None):
+def get_predicted_intent(probs, threshold: float=None) -> str:
+    '''
+    Return the string intent predicted from probs according to the given threshold
+    '''
     
     theorical_max = np.argmax(probs)
     
@@ -27,20 +30,6 @@ def get_predicted_intent(probs, threshold=None):
         
     return intent
 
-
-def get_predicted_intent(probs, threshold: float=None) -> str:
-    '''
-    Return the string intent predicted from probs according to the given threshold
-    '''
-    
-    theorical_max = np.argmax(probs)
-    
-    if threshold is not None:
-        intent = intents[theorical_max] if probs[theorical_max] >= threshold else "irrelevant"
-    else:
-        intent = intents[theorical_max]
-        
-    return intent
 
 def intent_pretty_print(intent: str) -> str:
     '''

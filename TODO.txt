@@ -1,4 +1,3 @@
-- typing dans tout le code
 - test unitaires de nos fonctions
 - organisation du dépôt, gérer les imports de modules
 - documenter les routes de l'api (dont les codes d'erreurs)
