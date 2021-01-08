@@ -1,0 +1,11 @@
+
+								given model			our model
+
+quels sont les horaires de train pour aller à Paris ?		find-train 0.34			find-train 1
+bonjour comment allez-vous ?					irrelevant 0.76			irrelevant 0.99
+quels sont les tarifs des vols pour Londres svp ?		irrelevant 0.43			find-fligth 0.99
+je veux réserver une table pour 4 personnes 	   		irrelevant 0.42  		find-restaurant 0.99
+je voudrais acheter une montre chez le bijoutier		purchase 0.71			purchase 0.99
+je cherche un boucher dans les environs 			find-around-me 0.36  		find-around-me 0.99
+quels sont les horaires des films au cinéma ?			provide-showtimes 0.60		provide-showtimes 1
+je voudrais réserver une chambre pour cette nuit		irrelevant 0.63			find-hotel 0.99
