@@ -50,7 +50,8 @@ The repository is composed of the following files and folders:
  ┃ ┗ 📜best_threshold : store the value of the best   threshold computed  
  ┣ 📜Dockerfile  
  ┣ 📜README.md  
- ┗ 📜requirements.txt  
+ ┣ 📜requirements.txt  
+ ┗ 📜benchmarking.txt : provides a quick comparative analysis between our model and the one that was given for several sentences
 
 ### Analysis and visualizations
 
@@ -89,12 +90,13 @@ In comparison, the base application performances were:
 - Recall = 0.665
 - F1-score = 0.758
 
-We notice that our loss is way higher then the base model's one, and it's also the case compared to our training loss (0.05).
+We notice that our loss is way higher than the base model's one, and it's also the case compared to our training loss (0.05).
 Looking at the other metrics, our model seems over all as performant as the previous one, maybe a little better.
 
 Moreover, we can't really compare the two models based on this measures because they are not evaluated on the same datas. Indeed, the base model is evaluated on 10% of the training set and ours is evaluated on a separate testing set. This makes the base model look better than ours since it is evaluated on datas it has already seen.
 
-So, as a conclusion for this part, we can't properly compare these 2 models based on evaluation measure since they don't comme from the same evaluation datas.
+So, as a conclusion for this part, we can't properly compare these 2 models based on evaluation measure since they don't come from the same evaluation datas.  
+However, the file `benchmarking.txt` provides a quick comparison of the two models for some example sentences and we can see that our model does not make any mistake on these examples and seems quite reliable.
 
 
 ## Performance Tests
