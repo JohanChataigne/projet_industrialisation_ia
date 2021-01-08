@@ -1,3 +1,8 @@
 obsolete_notebooks/
 preprocessed_data/
+notebooks/
+test/
+datas/
+README.md
+requirements.txt
 .git
