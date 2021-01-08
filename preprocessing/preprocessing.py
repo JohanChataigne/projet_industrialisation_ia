@@ -120,8 +120,8 @@ class Preprocessor:
         
         # Regroup labels and datas in one structure
         data = []
-        print(self.preprocessed_sentences.shape)
-        print(self.preprocessed_intents.shape)
+        #print(self.preprocessed_sentences.shape)
+        #print(self.preprocessed_intents.shape)
         assert len(self.preprocessed_sentences) == len(self.preprocessed_intents)
         
         for i in range(len(self.preprocessed_sentences)):
