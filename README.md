@@ -30,7 +30,8 @@ The repository is composed of the following files and folders:
  ┣ 📂preprocessing  
  ┃ ┣ 📜dataset_balancing.py : contains functions used to balance the dataset   
  ┃ ┗ 📜preprocessing.py : contains functions used to preprocessed the dataset  
- ┣ 📂test : contains unit tests files   
+ ┣ 📂test : contains unit tests files  
+ ┣ 📂test-img : contains locust test images for README  
  ┣ 📂threshold :  
    ┣ 📜threshold.py : contains functions used to compute the best threshold to be applied for our application    
  ┃ ┗ 📜best_threshold : store the value of the best   threshold computed  
