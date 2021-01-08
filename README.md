@@ -44,3 +44,30 @@ The first step of the project is to analyze the minimal version given to find ou
 In the notebook `project_analysis.ipynb` we make many visualizations and analysis on the given datasets and model in order to identify the most important metrics to be used to evaluate the performances of the model.
 
 ## 
+
+## Performance Tests
+ It is important to know the performance of your service. In order to evaluate the REST API implemented previously, we choose to use Locust, which works well with Flask.
+ We will make a given number of simultaneous calls to the API to test the average response time:
+ 
+<img src="test-img/biglocust.png" alt="test" width="700"/>
+ 
+ As we can see, the service has some difficulties answering to a number of users greater than a dozen. Even with 15 users at a time, the API takes up to 3 minutes to anwser. After a moment, it crashes down. 
+ It surely isn't ready to be put online according to these tests.
+ 
+### Scaling
+
+This test was made on a Intel Core i5-9600KF CPU at 3.70Ghz. To scale our system vertically, we could try to use the GPU in order to calculate faster the answers. In fact, the computer was having a hard time trying to handle even a pack of 5 users at a time. Scaling vertically is the most cost-efficient method to improve response time and stability. We could also use a higher amout of devices to run the API.
+
+### Load ramp-up test
+
+To load ramp-up test our API, we launch Locust with different parameters. The aim is to have an approximative maximum number of simultaneous users our service can handle.
+
+To do so, we add a user every 100 seconds.
+
+<img src="test-img/loadrampup.png" alt="ramp-up" width="700"/>
+
+We can see with this test that 7 users at a time seems to be the limit. To improve precision, we made 10 other tests with similar parameters and ended with a mean of a maximum of 8 users at a time.
+
+With this test, we can also see that the approximate response time is : 
+
+`number_of_simultaneous_users * 10 seconds.`
