@@ -43,7 +43,8 @@ The repository is composed of the following files and folders:
  ┣ 📂preprocessing  
  ┃ ┣ 📜dataset_balancing.py : contains functions used to balance the dataset   
  ┃ ┗ 📜preprocessing.py : contains functions used to preprocessed the dataset  
- ┣ 📂test : contains unit tests files   
+ ┣ 📂test : contains unit tests files  
+ ┣ 📂test-img : contains locust test images for README  
  ┣ 📂threshold :  
    ┣ 📜threshold.py : contains functions used to compute the best threshold to be applied for our application    
  ┃ ┗ 📜best_threshold : store the value of the best   threshold computed  
@@ -81,6 +82,34 @@ After training our model we had to evaluate its performance. We obtained the fol
 - F1-score = 0.82
 - F0.5-score = 0.83
 
+
+
+## Performance Tests
+ It is important to know the performance of your service. In order to evaluate the REST API implemented previously, we choose to use Locust, which works well with Flask.
+ We will make a given number of simultaneous calls to the API to test the average response time:
+ 
+<img src="test-img/biglocust.PNG" width="700"/>
+ 
+ As we can see, the service has some difficulties answering to a number of users greater than a dozen. Even with 15 users at a time, the API takes up to 3 minutes to anwser. After a moment, it crashes down. 
+ It surely isn't ready to be put online according to these tests.
+ 
+### Scaling
+
+This test was made on a Intel Core i5-9600KF CPU at 3.70Ghz. To scale our system vertically, we could try to use the GPU in order to calculate faster the answers. In fact, the computer was having a hard time trying to handle even a pack of 5 users at a time. Scaling vertically is the most cost-efficient method to improve response time and stability. We could also use a higher amout of devices to run the API.
+
+### Load ramp-up test
+
+To load ramp-up test our API, we launch Locust with different parameters. The aim is to have an approximative maximum number of simultaneous users our service can handle.
+
+To do so, we add a user every 100 seconds.
+
+<img src="test-img/loadrampup.PNG" width="700"/>
+
+We can see with this test that 7 users at a time seems to be the limit. To improve precision, we made 10 other tests with similar parameters and ended with a mean of a maximum of 8 users at a time.
+
+With this test, we can also see that the approximate response time is : 
+
+`number_of_simultaneous_users * 10 seconds.`
 
 
 ## Future improvements
