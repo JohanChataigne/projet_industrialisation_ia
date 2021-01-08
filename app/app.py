@@ -1,24 +1,21 @@
 import sys
 import os
 import pickle
-#sys.path.insert(0, os.getcwd() + '/..')
+sys.path.append('./preprocessing')
 
 from flask import Flask
 from flasgger import Swagger, swag_from
 
-import preprocessing
-from preprocessing.preprocessing import preprocess_sentence
+from preprocessing import preprocess_sentence
 from tensorflow import keras
 from utils import *
 import markdown
 import markdown.extensions.fenced_code
     
 
-
-
 # Load threshold if exists
-if os.path.exists('./best_threshold'):
-    with open('./best_threshold', 'rb') as f:
+if os.path.exists('./threshold/best_threshold'):
+    with open('./threshold/best_threshold', 'rb') as f:
         threshold = pickle.load(f)
 else:
     threshold = None
@@ -36,7 +33,7 @@ swagger = Swagger(app)
 def home():
     """Home route"""
     
-    md_file = open('./home.md', 'r')
+    md_file = open('./app/home.md', 'r')
     md_template_string = markdown.markdown(
           md_file.read(), extensions=["fenced_code"]
     )
@@ -61,4 +58,5 @@ def predict(sentence):
 
 if __name__ == "__main__":
     
-    app.run(port=8080)
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=8080)

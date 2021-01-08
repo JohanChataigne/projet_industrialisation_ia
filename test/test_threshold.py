@@ -1,6 +1,6 @@
 import sys
-sys.path.append('..')
-import threshold.threshold as t
+sys.path.append('./threshold')
+import threshold as t
 import numpy as np
 
 def test_apply_threshold():
@@ -10,4 +10,3 @@ def test_apply_threshold():
     assert t.apply_threshold(x, 0.80) == 2
     assert t.apply_threshold(x, 0.90) == 1
 
-    

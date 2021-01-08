@@ -1,7 +1,6 @@
 import sys
-sys.path.append('..')
-import app
-import app.utils as u
+sys.path.append('./app')
+import utils as u
 import numpy as np
 
 def test_get_predicted_intent():
@@ -16,4 +15,3 @@ def test_intent_pretty_print():
      assert u.intent_pretty_print("irrelevant") == "I didn't understand what you want, your request is being sent to a human agent."
         
         
-test_get_predicted_intent()

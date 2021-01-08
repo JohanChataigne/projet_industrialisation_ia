@@ -1,6 +1,6 @@
 import sys
-sys.path.append('..')
-from preprocessing.dataset_balancing import Balance
+sys.path.append('./preprocessing')
+from dataset_balancing import Balance
 import pandas as pd
 
 balance = Balance(pd.read_json('datas/training_set.json'))
