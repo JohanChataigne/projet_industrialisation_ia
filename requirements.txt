@@ -13,4 +13,4 @@ imbalanced-learn==0.7.0
 imblearn==0.0
 scikit-learn==0.23.2
 seaborn==0.10.1
-
+locust==1.4.1
