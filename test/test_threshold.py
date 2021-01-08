@@ -1,4 +1,6 @@
-import threshold as t
+import sys
+sys.path.append('..')
+import threshold.threshold as t
 import numpy as np
 
 def test_apply_threshold():

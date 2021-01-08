@@ -1,13 +1,19 @@
+import sys
+import os
+import pickle
+#sys.path.insert(0, os.getcwd() + '/..')
+
 from flask import Flask
 from flasgger import Swagger, swag_from
-from preprocessing import preprocess_sentence
+
+import preprocessing
+from preprocessing.preprocessing import preprocess_sentence
 from tensorflow import keras
 from utils import *
 import markdown
 import markdown.extensions.fenced_code
     
-import os
-import pickle
+
 
 
 # Load threshold if exists

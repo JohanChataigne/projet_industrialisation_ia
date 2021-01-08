@@ -7,6 +7,7 @@ spacy==2.3.5
 fr-core-news-md @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-2.3.0/fr_core_news_md-2.3.0.tar.gz
 matplotlib==3.2.1
 pandas==1.0
+Markdown==3.2.2
 
 
 

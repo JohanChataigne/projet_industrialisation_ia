@@ -1,7 +1,9 @@
-import dataset_balancing as db
+import sys
+sys.path.append('..')
+from preprocessing.dataset_balancing import Balance
 import pandas as pd
 
-balance = db.Balance(pd.read_json('datas/training_set.json'))
+balance = Balance(pd.read_json('datas/training_set.json'))
 
 def test_oversample():
     
