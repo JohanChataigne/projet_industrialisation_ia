@@ -1,5 +1,0 @@
-- test unitaires de nos fonctions
-- documenter les routes de l'api (dont les codes d'erreurs)
-- faire un readme détaillant le travail effectué et les pistes d'amélioration
-- afficher les performances du modèle et de l'api dans la documentation (montée en charge)
-
