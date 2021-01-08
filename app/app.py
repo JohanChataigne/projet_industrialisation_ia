@@ -26,6 +26,8 @@ app = Flask(__name__)
 app.config.from_object('config.Config')
 swagger = Swagger(app)
 
+# Load trained model
+model = keras.models.load_model('./models/model_v1')
 
 # API routes
 @app.route('/')
@@ -50,9 +52,6 @@ def apidocs():
 def predict(sentence):
     
     response_dict = {}
-    
-    # Load trained model
-    model = keras.models.load_model('./models/model_v1')
     
     # Preprocess given sentence
     x = preprocess_sentence(sentence)

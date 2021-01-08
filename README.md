@@ -82,10 +82,23 @@ After training our model we had to evaluate its performance. We obtained the fol
 - F1-score = 0.82
 - F0.5-score = 0.83
 
+In comparison, the base application performances were:
+
+- Loss = 0.015
+- Precision = 0.883
+- Recall = 0.665
+- F1-score = 0.758
+
+We notice that our loss is way higher then the base model's one, and it's also the case compared to our training loss (0.05).
+Looking at the other metrics, our model seems over all as performant as the previous one, maybe a little better.
+
+Moreover, we can't really compare the two models based on this measures because they are not evaluated on the same datas. Indeed, the base model is evaluated on 10% of the training set and ours is evaluated on a separate testing set. This makes the base model look better than ours since it is evaluated on datas it has already seen.
+
+So, as a conclusion for this part, we can't properly compare these 2 models based on evaluation measure since they don't comme from the same evaluation datas.
 
 
 ## Performance Tests
- It is important to know the performance of your service. In order to evaluate the REST API implemented previously, we choose to use Locust, which works well with Flask.
+ It is important to know the performance of our service. In order to evaluate the REST API implemented previously, we chose to use Locust, which works well with Flask.
  We will make a given number of simultaneous calls to the API to test the average response time:
  
 <img src="test-img/biglocust.PNG" width="700"/>
