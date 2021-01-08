@@ -6,7 +6,7 @@ ADD . /app/
 
 WORKDIR /app
 
-RUN pip install -r requirements.txt
+RUN pip install -r requirements_docker.txt
 
 EXPOSE 8080
 
