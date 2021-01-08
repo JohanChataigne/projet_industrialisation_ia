@@ -19,10 +19,8 @@ The application offers to the users a classification model that takes their dema
    - `docker build -t <img_name> <directory>`
    - `docker run -p 8080:8080 <img_name>`
     
-3. Get the docker image on DockerHub and run it:
-   - `docker pull ...`
-   - `docker run -p 8080:8080 ...`
-
+3. ... or get the latest built image on DockerHub (995 MB) and run it:
+   - `docker pull idiwii/intent-classification-service:latest`
 
 
 ## Content of the project
@@ -70,7 +68,7 @@ We chose not to use the lemmatizer provided by SpaCy because we were receiving s
 
 ### Model training
 
-After preprocessing the data, we tried to build a performant model in order to classify french sentences in a set of 8 different intents. Like the majority of text analysis Deep Learning models, our model is composed of a recurrent layer (Bidirectionnal LSTM) followed by several fully connected layers for classification. The output layer uses a *softmax* activation function in order to generate a set of probabilities matching the 8 intents. The model is trained using the *categorical crossentropy* loss function as the problem is a multi-class classification problem.
+After preprocessing the data, we tried to build a performant model in order to classify french sentences in a set of 8 different intents. Like the majority of text analysis Deep Learning models, our model is composed of a recurrent layer (Bidirectionnal LSTM) followed by several fully connected layers for classification. We also tried the same architecture replacing the LSTM by a GRU but we got similar results so we just kept the LSTM layer. The output layer uses a *softmax* activation function in order to generate a set of probabilities matching the 8 intents. The model is trained using the *categorical crossentropy* loss function as the problem is a multi-class classification problem.
 
 ### Model evaluation
 
@@ -126,3 +124,30 @@ With this test, we can also see that the approximate response time is :
 
 
 ## Future improvements
+
+### Data improvements
+
+Speaking about datas, we thought about the following improvements:
+- Try other over/under-sampling strategies than the random one we used (for example SMOTE and ADASYN).
+- Create synthetic data instead of oversampling (maybe hard with text).
+
+### Peprocessing improvements
+
+We can think of a lot of different things we could have done in the preprocessing steps, here are some of them:
+- Use word vectors to keep more information on sense and restrict the sentence length that the user can give (and use padding).
+- Train and tune an embedding model to get our own computation of word vectors.
+- Use more the tagger to remove more than just the determiners (for example pronouns).
+- Try to find a good lemmatizer on french language to integrate in the preprocessing pipeline.
+
+### Model improvements
+
+- Train a deeper model with more fully connected layers and a larger RNN layer.
+- Evaluate the model with other metrics (for example Fbeta score with other betas than 0.5 but still inferior to 1).
+
+### Application improvements
+
+The application improvements mainly concern speed, documentation and UI.
+To improve those things we could:
+- Try an other framework than Flask such as Django.
+- Study more Swagger documentation for the UI or use another tool.
+- Move to an ASGI server, because the service should be able to receive multiple requests from one user an switch between then when he gets an answer from the server. This can be done with an asynchronous implementation like ASGI.
