@@ -4,7 +4,7 @@ Authors: [Chataigner Johan](https://github.com/JohanChataigne), [Germon Paul](ht
 
 This project is based on its minimal version which can be found [here](https://hub.docker.com/r/wiidiiremi/projet_industrialisation_ia_3a).
 
-The application offers to the users a classification model that takes their demands (french sentences) as input and classifies them into intents.
+The application offers to the users a classification model that takes their demands (french sentences) as input and classifies them into intents. You can find the built project image [here](https://hub.docker.com/r/idiwii/intent-classification-service/).
 
 
 ## Install and run the project
@@ -150,4 +150,4 @@ The application improvements mainly concern speed, documentation and UI.
 To improve those things we could:
 - Try an other framework than Flask such as Django.
 - Study more Swagger documentation for the UI or use another tool.
-- Move to an ASGI server, because the service should be able to receive multiple requests from one user an switch between then when he gets an answer from the server. This can be done with an asynchronous implementation like ASGI.
+- Move to an ASGI server, because the service should be able to receive multiple requests from one user an switch between then when he gets an answer from the server. This can be done with an asynchronous implementation like ASGI.  
