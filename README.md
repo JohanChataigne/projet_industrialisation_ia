@@ -4,7 +4,7 @@ Authors: [Chataigner Johan](https://github.com/JohanChataigne), [Germon Paul](ht
 
 This project is based on its minimal version which can be found [here](https://hub.docker.com/r/wiidiiremi/projet_industrialisation_ia_3a).
 
-The application offers to the users a classification model that takes their demands (french sentences) as input and classifies them into intents.
+The application offers to the users a classification model that takes their demands (french sentences) as input and classifies them into intents. You can find the built project image [here](https://hub.docker.com/r/idiwii/intent-classification-service/).
 
 
 ## Install and run the project
