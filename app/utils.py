@@ -21,8 +21,6 @@ def get_predicted_intent(probs, threshold: float=None) -> str:
     
     theorical_max = np.argmax(probs)
     
-    probs = probs.flatten()
-    
     if threshold is not None:
         intent = intents[theorical_max] if probs[theorical_max] >= threshold else "irrelevant"
     else:
@@ -39,3 +37,14 @@ def intent_pretty_print(intent: str) -> str:
     assert intent in intents
     
     return prints[intents.index(intent)]
+
+
+def build_prediction_dict(prediction):
+    '''
+    Build an {intent: prob} from prediction array
+    '''
+    prediction_dict = {}
+    for i, p in enumerate(prediction.tolist()):
+        prediction_dict[intents[i]] = p
+        
+    return prediction_dict
