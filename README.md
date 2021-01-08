@@ -103,23 +103,21 @@ However, the file `benchmarking.txt` provides a quick comparison of the two mode
  
 <img src="test-img/biglocust.PNG" width="700"/>
  
- As we can see, the service responds quicker of there are a low number of simultaneous users. It surely isn't ready to be put online according to these tests, as the answering time is too long to be used by clients. Waiting for more than 20 seconds for an anwser is unthinkable. 
+ As we can see, the service responds quicker if there are a low number of simultaneous users. It surely isn't ready to be put online according to these tests, as the answering time is too long to be used by clients. Waiting for more than 20 seconds for an anwser is unthinkable. 
  
-With this test, we can also see that the approximate response time is : 
-
-`number_of_simultaneous_users * 2.5 seconds.` When there are about 10 users at the same time.
+With this test, we can also see that the approximate response time is `number_of_simultaneous_users * 2.5 seconds` when there are about 10 users at the same time.
 
 ### Scaling
 
-This test was made on a Intel Core i5-9600KF CPU at 3.70Ghz. To scale our system vertically, we could try to use the GPU in order to calculate faster the answers. In fact, the computer was having a hard time trying to handle even a pack of 5 users at a time. Scaling vertically is the most cost-efficient method to improve response time and stability. We could also use a higher amout of devices to run the API.
+This test was made on a Intel Core i5-9600KF CPU at 3.70Ghz. To scale our system vertically, we could try to use the GPU in order to calculate faster the answers. In fact, the computer was having a hard time trying to handle even a pack of 5 users at a time. Scaling vertically is the most cost-efficient method to improve response time and stability. We could also use a higher amount of devices to run the API.
 
 ### Load ramp-up test
 
-To load ramp-up test our API, we launch Locust with different parameters. The aim is to have an approximative maximum number of simultaneous users our service can handle.
+To load ramp-up test our API, we launched Locust with different parameters. The aim is to have an approximative maximum number of simultaneous users our service can handle.
 
 To do so, we add a user every 10 seconds up to 100 users.
 
-<img src="test-img/loadrampup.PNG" width="700"/>
+<img src="test-img/rampup.PNG" width="700"/>
 
 We can see with this test that as long as users don't use the API too quickly, the service holds up. To improve precision, we made 10 other tests with different parameters and ended with a required time of 0.5 second between each call or the service crashes quickly.
 
@@ -146,8 +144,8 @@ We can think of a lot of different things we could have done in the preprocessin
 
 ### Application improvements
 
-The application improvements mainly concern speed, documentation and UI.
+The application improvements mainly concerns speed, documentation and UI.
 To improve those things we could:
-- Try an other framework than Flask such as Django.
+- Try another framework than Flask such as Django.
 - Study more Swagger documentation for the UI or use another tool.
-- Move to an ASGI server, because the service should be able to receive multiple requests from one user an switch between then when he gets an answer from the server. This can be done with an asynchronous implementation like ASGI.  
+- Move to an ASGI server, because the service should be able to receive multiple requests from one user an switch between them when he gets an answer from the server. This can be done with an asynchronous implementation like ASGI.  
