@@ -5,7 +5,6 @@ import re
 import os
 import spacy
 import fr_core_news_md
-from tensorflow.keras.preprocessing.sequence import pad_sequences
 import pickle
 import typing as t
 
@@ -68,20 +67,12 @@ class Preprocessor:
         self.preprocessed_sentences = self.vectorized_text
 
     
-    def pad(self) -> t.NoReturn:
-        '''
-        Add padding to sentences to have same size datas
-        '''
-        self.preprocessed_sentences = pad_sequences(self.vectorized_text, dtype='float32', padding='post')
-
-    
     def preprocess_sentences(self) -> t.NoReturn:
         '''
         Apply the whole pipeline to input sentences and return them as numpy array object
         '''
         self.clean()
         self.vectorize()
-        #self.pad()
 
 
     def intent2vec(self, intent: t.Iterable) -> t.Iterable:
